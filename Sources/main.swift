@@ -42,6 +42,8 @@ final class Model: ObservableObject {
 
     init(live: Bool = true) {
         guard live else { return }
+        // A menu bar app has no windows, so macOS would quietly quit it ("automatic termination"). Opt out.
+        ProcessInfo.processInfo.disableAutomaticTermination("Menu bar app must keep running")
         refresh()
         // ponytail: 3s poll keeps the menu bar icon in step with changes made in System Settings;
         // switch to a change notification if Apple ever exposes one.
